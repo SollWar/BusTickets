@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sollwar.bustickets.City
@@ -33,7 +34,6 @@ class CitySelectorFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CityAdapter
 
-    private lateinit var cities: ArrayList<City>
     private lateinit var cityName: String
     private lateinit var citySelect: String
 
@@ -43,14 +43,12 @@ class CitySelectorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_city_selector, container, false)
-        fillCity()
-        adapter = CityAdapter(cities)
         cityName = arguments?.getString(CITY_NAME) as String
         citySelect = arguments?.getString(CITY_SELECTION) as String
-        Log.d("Def", citySelect)
         autoCompleteCity = view.findViewById(R.id.autoComplete_city_out)
         autoCompleteCity.hint = cityName
         recyclerView = view.findViewById(R.id.city_list)
+        adapter = CityAdapter(arrayListOf())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         autoCompleteCity.requestFocus()
@@ -61,20 +59,22 @@ class CitySelectorFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.citiesListLiveData.observe(
+            viewLifecycleOwner,
+            Observer { cities ->
+                cities?.let {
+                    adapter = CityAdapter(ArrayList(cities))
+                    recyclerView.adapter = adapter
+                    Log.d("ViewModel", cities.toString())
+                }
+            }
+        )
         autoCompleteCity.doAfterTextChanged {
             adapter.filter.filter(it)
             recyclerView.visibility = View.VISIBLE
         }
     }
 
-    private fun fillCity() {
-        cities = arrayListOf()
-        cities.add(City("Унеча","Брянская обл., Унечский р-он"))
-        cities.add(City("Дубна","Московская обл."))
-        cities.add(City("Москва","Московская обл."))
-        cities.add(City("Сочи","Краснодарский край."))
-        cities.add(City("Самара","Самарская обл."))
-    }
 
     private inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

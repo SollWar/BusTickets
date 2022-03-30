@@ -18,10 +18,7 @@ import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.sollwar.bustickets.City
-import com.example.sollwar.bustickets.CityViewModel
-import com.example.sollwar.bustickets.R
-import com.example.sollwar.bustickets.navigator
+import com.example.sollwar.bustickets.*
 
 private const val CITY_OUT_SELECTION = "CITY_OUT_SELECTION"
 private const val CITY_IN_SELECTION = "CITY_IN_SELECTION"
@@ -48,8 +45,6 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("Def", viewModel.cityNameOut)
-        Log.d("Def", viewModel.cityNameIn)
         autoCompleteCityOut.hint = viewModel.cityNameOut
         autoCompleteCityIn.hint = viewModel.cityNameIn
     }
