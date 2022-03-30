@@ -1,33 +1,38 @@
 package com.example.sollwar.bustickets.fragment
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.sollwar.bustickets.City
+import com.example.sollwar.bustickets.CityViewModel
 import com.example.sollwar.bustickets.R
 import com.example.sollwar.bustickets.navigator
 
 private const val CITY_OUT_SELECTION = "CITY_OUT_SELECTION"
 private const val CITY_IN_SELECTION = "CITY_IN_SELECTION"
-private const val CITY_PLACEHOLDER = "CITY_PLACEHOLDER"
-private const val CITY_KEY = "CITY_KEY"
 
 class MainFragment : Fragment() {
+
+    private val viewModel: CityViewModel by activityViewModels()
 
     private lateinit var autoCompleteCityIn: Button
     private lateinit var autoCompleteCityOut: Button
     private lateinit var anim: Animation
-
-    private lateinit var cityKey: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +43,19 @@ class MainFragment : Fragment() {
         autoCompleteCityIn = view.findViewById(R.id.button_city_in)
         autoCompleteCityOut = view.findViewById(R.id.button_city_out)
         anim = AnimationUtils.loadAnimation(requireContext(), R.anim.alpha_in)
-        cityKey = arguments?.getString(CITY_KEY) as String
-        if (cityKey == CITY_PLACEHOLDER) {
-            autoCompleteCityOut.hint = "Дубна"
-            autoCompleteCityIn.hint = "Москва"
-        }
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("Def", viewModel.cityNameOut)
+        Log.d("Def", viewModel.cityNameIn)
+        autoCompleteCityOut.hint = viewModel.cityNameOut
+        autoCompleteCityIn.hint = viewModel.cityNameIn
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onStart() {
@@ -57,13 +69,8 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(key: String): MainFragment {
-            return MainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(CITY_KEY, key)
-                }
-            }
+        fun newInstance(): MainFragment {
+            return MainFragment()
         }
     }
-
 }
