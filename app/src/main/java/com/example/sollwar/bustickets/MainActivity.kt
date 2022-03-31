@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity(), Navigator {
         setContentView(R.layout.activity_main)
         val isFragmentContainerEmpty = savedInstanceState == null
         if (isFragmentContainerEmpty) {
-            supportActionBar?.hide()
             addFragment(MainFragment.newInstance())
         }
     }

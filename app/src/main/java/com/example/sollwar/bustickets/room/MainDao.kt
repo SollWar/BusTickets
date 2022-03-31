@@ -2,7 +2,10 @@ package com.example.sollwar.bustickets.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.sollwar.bustickets.City
+import com.example.sollwar.bustickets.model.Bus
+import com.example.sollwar.bustickets.model.City
+import com.example.sollwar.bustickets.model.Route
+import com.example.sollwar.bustickets.model.Stop
 
 @Dao
 interface MainDao {
@@ -16,6 +19,15 @@ interface MainDao {
     fun addCities(cities: List<City>)
 
     @Query("Delete from city")
-    fun clearTable()
+    fun clearCityTable()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addBus(bus: Bus)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addRoute(route: Route)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addStop(stop: Stop)
 
 }

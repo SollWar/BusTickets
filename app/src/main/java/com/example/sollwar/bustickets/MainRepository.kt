@@ -3,6 +3,8 @@ package com.example.sollwar.bustickets
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import com.example.sollwar.bustickets.model.Bus
+import com.example.sollwar.bustickets.model.City
 import com.example.sollwar.bustickets.room.MainDatabase
 import java.util.concurrent.Executors
 
@@ -13,7 +15,7 @@ class MainDBRepository private constructor(context: Context){
         context.applicationContext,
         MainDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     private val mainDao = database.mainDao()
     private val executor = Executors.newSingleThreadExecutor()
@@ -29,9 +31,15 @@ class MainDBRepository private constructor(context: Context){
             mainDao.addCity(city)
         }
     }
-    fun clearTable() {
+    fun clearCityTable() {
         executor.execute {
-            mainDao.clearTable()
+            mainDao.clearCityTable()
+        }
+    }
+
+    fun addBus(bus: Bus) {
+        executor.execute {
+            mainDao.addBus(bus)
         }
     }
 

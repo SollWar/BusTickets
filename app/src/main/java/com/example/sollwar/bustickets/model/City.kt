@@ -1,9 +1,10 @@
-package com.example.sollwar.bustickets
+package com.example.sollwar.bustickets.model
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity()
 data class City(
     @PrimaryKey(autoGenerate = true)
     var cityId: Int = 0,

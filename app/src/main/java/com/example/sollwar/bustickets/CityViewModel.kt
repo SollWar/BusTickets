@@ -2,6 +2,7 @@ package com.example.sollwar.bustickets
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.sollwar.bustickets.model.City
 
 class CityViewModel : ViewModel() {
     private val mainDBRepository = MainDBRepository.get()
@@ -10,9 +11,10 @@ class CityViewModel : ViewModel() {
     lateinit var citiesListLiveData: LiveData<List<City>>
 
     init {
+
         if (postgreRepository.status) {
             citiesListLiveData = postgreRepository.getCities()
-            mainDBRepository.clearTable()
+            mainDBRepository.clearCityTable()
             mainDBRepository.addCities(citiesListLiveData.value!!)
         } else {
             citiesListLiveData = mainDBRepository.getCities()

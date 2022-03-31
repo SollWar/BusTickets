@@ -1,12 +1,8 @@
 package com.example.sollwar.bustickets.postgredb
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.sollwar.bustickets.City
 import java.sql.Connection
 import java.sql.DriverManager
-import java.sql.ResultSet
 import java.sql.Statement
 
 class PostgreDatabase{

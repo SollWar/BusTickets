@@ -2,6 +2,7 @@ package com.example.sollwar.bustickets
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.example.sollwar.bustickets.model.City
 import com.example.sollwar.bustickets.postgredb.PostgreDao
 
 class PostgreRepository(context: Context) {
