@@ -2,10 +2,10 @@ package com.example.sollwar.bustickets
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sollwar.bustickets.fragment.CitySelectorFragment
 import com.example.sollwar.bustickets.fragment.MainFragment
-import com.example.sollwar.bustickets.postgredb.PostgreDatabase
 
 
 class MainActivity : AppCompatActivity(), Navigator {

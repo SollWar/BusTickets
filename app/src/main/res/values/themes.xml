@@ -15,4 +15,8 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>
+    
+    <style name="SplashTheme" parent="Theme.BusTickets">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>
