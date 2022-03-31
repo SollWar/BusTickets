@@ -1,4 +1,4 @@
-package com.example.sollwar.bustickets.database
+package com.example.sollwar.bustickets.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

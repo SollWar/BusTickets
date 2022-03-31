@@ -3,7 +3,7 @@ package com.example.sollwar.bustickets
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import com.example.sollwar.bustickets.database.MainDatabase
+import com.example.sollwar.bustickets.room.MainDatabase
 import java.util.concurrent.Executors
 
 private const val DATABASE_NAME = "main-database"
@@ -19,9 +19,19 @@ class MainDBRepository private constructor(context: Context){
     private val executor = Executors.newSingleThreadExecutor()
 
     fun getCities(): LiveData<List<City>> = mainDao.getCities()
+    fun addCities(cities: List<City>) {
+        executor.execute {
+            mainDao.addCities(cities)
+        }
+    }
     fun addCity(city: City) {
         executor.execute {
             mainDao.addCity(city)
+        }
+    }
+    fun clearTable() {
+        executor.execute {
+            mainDao.clearTable()
         }
     }
 

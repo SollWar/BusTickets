@@ -6,5 +6,6 @@ class BusTicketsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         MainDBRepository.initialize(this)
+        PostgreRepository.initialize(this)
     }
 }

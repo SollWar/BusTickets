@@ -51,9 +51,11 @@ class CitySelectorFragment : Fragment() {
         adapter = CityAdapter(arrayListOf())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         autoCompleteCity.requestFocus()
         val imm = (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)!!
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 1)
+
         return view
     }
 
@@ -65,7 +67,6 @@ class CitySelectorFragment : Fragment() {
                 cities?.let {
                     adapter = CityAdapter(ArrayList(cities))
                     recyclerView.adapter = adapter
-                    Log.d("ViewModel", cities.toString())
                 }
             }
         )
@@ -94,6 +95,7 @@ class CitySelectorFragment : Fragment() {
             if (citySelect == CITY_IN_SELECTION) {
                 viewModel.cityNameIn = city.name
             }
+
             requireActivity().onBackPressed()
             val imm = (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)!!
             imm.hideSoftInputFromWindow(recyclerView.windowToken, 0)

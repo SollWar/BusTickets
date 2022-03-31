@@ -5,9 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class City(
+    @PrimaryKey(autoGenerate = true)
+    var cityId: Int = 0,
     var name: String = "",
     var description: String = ""
-) {
-    @PrimaryKey(autoGenerate = true)
-    var cityId: Int = 0
-}
+)

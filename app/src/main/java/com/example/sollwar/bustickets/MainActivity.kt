@@ -1,13 +1,11 @@
 package com.example.sollwar.bustickets
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.example.sollwar.bustickets.fragment.CitySelectorFragment
 import com.example.sollwar.bustickets.fragment.MainFragment
+import com.example.sollwar.bustickets.postgredb.PostgreDatabase
 
 
 class MainActivity : AppCompatActivity(), Navigator {

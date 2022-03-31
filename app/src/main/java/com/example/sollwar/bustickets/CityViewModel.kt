@@ -1,16 +1,26 @@
 package com.example.sollwar.bustickets
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 
 class CityViewModel : ViewModel() {
     private val mainDBRepository = MainDBRepository.get()
+    private val postgreRepository = PostgreRepository.get()
 
-    val citiesListLiveData = mainDBRepository.getCities()
+    lateinit var citiesListLiveData: LiveData<List<City>>
+
+    init {
+        if (postgreRepository.status) {
+            citiesListLiveData = postgreRepository.getCities()
+            mainDBRepository.clearTable()
+            mainDBRepository.addCities(citiesListLiveData.value!!)
+        } else {
+            citiesListLiveData = mainDBRepository.getCities()
+        }
+    }
 
     fun addCity(city: City) {
         mainDBRepository.addCity(city)
-        Log.d("ViewModel", "City add try")
     }
 
     var cityNameOut: String = "Откуда"
