@@ -26,9 +26,9 @@
         tools:hint="30 мар, ср"
         android:textAlignment="viewStart"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintBottom_toTopOf="@+id/button_find_bus"
+        app:layout_constraintEnd_toEndOf="@+id/button_find_bus"
+        app:layout_constraintStart_toStartOf="@+id/button_find_bus" />
 
     <Button
         android:id="@+id/button_city_in"
@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="@+id/button_city_in" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_find_bus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

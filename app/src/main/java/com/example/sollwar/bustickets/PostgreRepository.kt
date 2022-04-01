@@ -2,6 +2,7 @@ package com.example.sollwar.bustickets
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.example.sollwar.bustickets.model.Bus
 import com.example.sollwar.bustickets.model.City
 import com.example.sollwar.bustickets.postgredb.PostgreDao
 
@@ -15,6 +16,8 @@ class PostgreRepository(context: Context) {
     }
 
     public fun getCities(): LiveData<List<City>> = dao.getCities()
+    public fun getAllBus(): LiveData<List<Bus>> = dao.getAllBus()
+
 
     companion object {
         private var INSTANCE: PostgreRepository? = null

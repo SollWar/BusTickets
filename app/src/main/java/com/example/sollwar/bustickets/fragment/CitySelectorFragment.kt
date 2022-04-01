@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sollwar.bustickets.model.City
-import com.example.sollwar.bustickets.CityViewModel
+import com.example.sollwar.bustickets.MainViewModel
 import com.example.sollwar.bustickets.R
 
 private const val CITY_NAME = "CITY_NAME"
@@ -25,7 +25,7 @@ private const val CITY_IN_SELECTION = "CITY_IN_SELECTION"
 
 class CitySelectorFragment : Fragment() {
 
-    private val viewModel: CityViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var autoCompleteCity: EditText
     private lateinit var recyclerView: RecyclerView
@@ -89,9 +89,11 @@ class CitySelectorFragment : Fragment() {
         override fun onClick(p0: View?) {
             if (citySelect == CITY_OUT_SELECTION) {
                 viewModel.cityNameOut = city.name
+                viewModel.cityIdFrom = city.cityId
             }
             if (citySelect == CITY_IN_SELECTION) {
                 viewModel.cityNameIn = city.name
+                viewModel.cityIdIn = city.cityId
             }
 
             requireActivity().onBackPressed()

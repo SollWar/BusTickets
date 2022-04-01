@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.sollwar.bustickets.fragment.BusSelectionFragment
 import com.example.sollwar.bustickets.fragment.CitySelectorFragment
 import com.example.sollwar.bustickets.fragment.MainFragment
 
@@ -19,7 +20,21 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun cityClick(cityName: String, citySelect: String) {
-        replaceFragment(CitySelectorFragment.newInstance(cityName, citySelect))
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.get_up, R.anim.get_invisible, R.anim.get_visible, R.anim.get_down)
+            .addToBackStack(null)
+            .replace(R.id.fragment_container, CitySelectorFragment.newInstance(cityName, citySelect))
+            .commit()
+    }
+
+    override fun findBus() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.get_up, R.anim.get_invisible, R.anim.get_visible, R.anim.get_down)
+            .addToBackStack(null)
+            .replace(R.id.fragment_container, BusSelectionFragment.newInstance())
+            .commit()
     }
 
     private fun addFragment(fragment: Fragment) {

@@ -20,7 +20,7 @@ class MainDBRepository private constructor(context: Context){
     private val mainDao = database.mainDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun getCities(str: String): LiveData<List<City>> = mainDao.getCities(str)
+    fun getCities(str: String = "%"): LiveData<List<City>> = mainDao.getCities(str)
     fun addCities(cities: List<City>) {
         executor.execute {
             mainDao.addCities(cities)
@@ -37,6 +37,13 @@ class MainDBRepository private constructor(context: Context){
         }
     }
 
+
+    fun getBus(cityFrom: Int = 0, cityIn: Int = 0): LiveData<List<Bus>> = mainDao.getBus(cityFrom, cityIn)
+    fun addBuses(buses: List<Bus>) {
+        executor.execute {
+            mainDao.addBuses(buses)
+        }
+    }
     fun addBus(bus: Bus) {
         executor.execute {
             mainDao.addBus(bus)

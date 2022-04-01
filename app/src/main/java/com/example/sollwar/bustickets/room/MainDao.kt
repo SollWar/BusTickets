@@ -18,8 +18,14 @@ interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCities(cities: List<City>)
 
-    @Query("Delete from city")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addBuses(buses: List<Bus>)
+
+    @Query("DELETE FROM city")
     fun clearCityTable()
+
+    @Query("SELECT * FROM bus WHERE cityFrom = :cityFrom AND cityIn = :cityIn")
+    fun getBus(cityFrom: Int, cityIn: Int): LiveData<List<Bus>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addBus(bus: Bus)
