@@ -8,8 +8,8 @@ data class BusOnRoute(
     @PrimaryKey
     var busId: Int = 0,
     var name: String = "",
-    var cityFrom: Int = 0,
-    var cityIn: Int = 0,
+    var stopFrom: String = "",
+    var stopIn: String = "",
     var timeFrom: String = "",
     var timeIn: String = "",
     var price: Int = 0

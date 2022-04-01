@@ -24,12 +24,13 @@ interface MainDao {
     @Query("DELETE FROM city")
     fun clearCityTable()
 
-    @Query("SELECT t1.busId, t2.name, t1.cityFrom, t2.cityIn, t1.timeFrom, t2.timeIn, t2.price\n" +
+    @Query("SELECT t1.busId, t2.name, t1.stopFrom, t2.stopIn, t1.timeFrom, t2.timeIn, t2.price\n" +
             "FROM \n" +
-            "(SELECT Route.busId as busId, Route.routeId as routeId, Route.time as timeFrom, City.cityId as cityFrom FROM Route, Stop, City WHERE Route.stopId = Stop.stopId and Stop.cityId = City.cityId and Stop.cityId = :cityFrom) t1 \n" +
+            "(SELECT Route.busId as busId, Route.routeId as routeId, Route.time as timeFrom, Stop.name as stopFrom FROM Route, Stop, City WHERE Route.stopId = Stop.stopId and Stop.cityId = City.cityId and Stop.cityId = :cityFrom) t1 \n" +
             "INNER JOIN \n" +
-            "(SELECT Route.busId  as busId, Route.time as timeIn, Bus.name as name, City.cityId as cityIn, Route.price as price FROM Route, Stop, City, Bus WHERE Bus.busId = Route.busId and Route.stopId = Stop.stopId and Stop.cityId = City.cityId and Stop.cityId = :cityIn) t2 \n" +
-            "ON (t1.busId = t2.busId)")
+            "(SELECT Route.busId  as busId, Route.time as timeIn, Bus.name as name, Route.price as price, Stop.name as stopIn FROM Route, Stop, City, Bus WHERE Bus.busId = Route.busId and Route.stopId = Stop.stopId and Stop.cityId = City.cityId and Stop.cityId = :cityIn) t2 \n" +
+            "ON (t1.busId = t2.busId and  t2.timeIn > t1.timeFrom)" +
+            "ORDER BY t1.timeFrom")
     fun getBus(cityFrom: Int, cityIn: Int): LiveData<List<BusOnRoute>>
 
     @Query("SELECT * FROM route")

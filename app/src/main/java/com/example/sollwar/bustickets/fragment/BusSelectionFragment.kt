@@ -50,7 +50,6 @@ class BusSelectionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        Toast.makeText(requireContext(), "$cityIdFrom $cityFrom ->$cityIdIn $cityIn", Toast.LENGTH_SHORT).show()
         viewModel.refreshBuses(cityIdFrom, cityIdIn)
         viewModel.busOnRouteListLiveData.observe(
             viewLifecycleOwner,
@@ -90,8 +89,8 @@ class BusSelectionFragment : Fragment() {
             busName.text = this.busOnRoute.name
             timeFrom.text = this.busOnRoute.timeFrom
             timeIn.text = this.busOnRoute.timeIn
-            placeFrom.text = viewModel.cityNameOut
-            placeIn.text = viewModel.cityNameIn
+            placeFrom.text = this.busOnRoute.stopFrom
+            placeIn.text = this.busOnRoute.stopIn
             priceTicket.text = "${this.busOnRoute.price.toString()} Р"
         }
     }
