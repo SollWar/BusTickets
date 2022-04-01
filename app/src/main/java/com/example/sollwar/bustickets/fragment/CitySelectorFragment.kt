@@ -56,20 +56,21 @@ class CitySelectorFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onStart() {
         super.onStart()
-        viewModel.citiesListLiveData.observe(
-            viewLifecycleOwner,
-            Observer { cities ->
-                cities?.let {
-                    adapter = CityAdapter(ArrayList(cities))
-                    recyclerView.adapter = adapter
-                }
-            }
-        )
         autoCompleteCity.doAfterTextChanged {
-            adapter.filter.filter(it)
-            recyclerView.visibility = View.VISIBLE
+            viewModel.refreshCities(it.toString())
+            viewModel.citiesListLiveData.observe(
+                viewLifecycleOwner,
+                Observer { cities ->
+                    cities?.let {
+                        adapter = CityAdapter(ArrayList(cities))
+                        recyclerView.adapter = adapter
+                    }
+                }
+            )
+            //adapter.filter.filter(it)
         }
     }
 

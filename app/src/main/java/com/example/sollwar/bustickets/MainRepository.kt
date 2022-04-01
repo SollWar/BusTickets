@@ -20,7 +20,7 @@ class MainDBRepository private constructor(context: Context){
     private val mainDao = database.mainDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun getCities(): LiveData<List<City>> = mainDao.getCities()
+    fun getCities(str: String): LiveData<List<City>> = mainDao.getCities(str)
     fun addCities(cities: List<City>) {
         executor.execute {
             mainDao.addCities(cities)

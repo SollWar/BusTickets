@@ -11,14 +11,18 @@ class CityViewModel : ViewModel() {
     lateinit var citiesListLiveData: LiveData<List<City>>
 
     init {
-
         if (postgreRepository.status) {
             citiesListLiveData = postgreRepository.getCities()
             mainDBRepository.clearCityTable()
             mainDBRepository.addCities(citiesListLiveData.value!!)
         } else {
-            citiesListLiveData = mainDBRepository.getCities()
+            citiesListLiveData = mainDBRepository.getCities("%")
         }
+    }
+
+    fun refreshCities(filter: String = "") {
+        val str = "$filter%"
+        citiesListLiveData = mainDBRepository.getCities(str)
     }
 
     fun addCity(city: City) {

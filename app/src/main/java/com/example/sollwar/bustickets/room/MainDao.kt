@@ -9,8 +9,8 @@ import com.example.sollwar.bustickets.model.Stop
 
 @Dao
 interface MainDao {
-    @Query("SELECT * FROM city")
-    fun getCities(): LiveData<List<City>>
+    @Query("SELECT * FROM city WHERE name LIKE :str LIMIT 3")
+    fun getCities(str: String): LiveData<List<City>>
 
     @Insert
     fun addCity(city: City)
