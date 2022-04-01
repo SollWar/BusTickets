@@ -24,5 +24,6 @@ data class Route(
     var routeId: Int = 0,
     var busId: Int = 0,
     var stopId: Int = 0,
-    var time: String = ""
+    var time: String = "",
+    var price: Int = 0
 )

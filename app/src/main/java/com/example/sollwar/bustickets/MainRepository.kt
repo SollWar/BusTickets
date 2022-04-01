@@ -1,10 +1,13 @@
 package com.example.sollwar.bustickets
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Room
-import com.example.sollwar.bustickets.model.Bus
-import com.example.sollwar.bustickets.model.City
+import com.example.sollwar.bustickets.model.*
 import com.example.sollwar.bustickets.room.MainDatabase
 import java.util.concurrent.Executors
 
@@ -37,11 +40,22 @@ class MainDBRepository private constructor(context: Context){
         }
     }
 
-
-    fun getBus(cityFrom: Int = 0, cityIn: Int = 0): LiveData<List<Bus>> = mainDao.getBus(cityFrom, cityIn)
+    fun getBus(cityFrom: Int = 0, cityIn: Int = 0): LiveData<List<BusOnRoute>> = mainDao.getBus(cityFrom, cityIn)
+    fun getAllRoute(): LiveData<List<Route>> = mainDao.getAllRoute()
+    fun getAllStop(): LiveData<List<Stop>> = mainDao.getAllStop()
     fun addBuses(buses: List<Bus>) {
         executor.execute {
             mainDao.addBuses(buses)
+        }
+    }
+    fun addRoutes(routes: List<Route>) {
+        executor.execute {
+            mainDao.addRoutes(routes)
+        }
+    }
+    fun addStops(stops: List<Stop>) {
+        executor.execute {
+            mainDao.addStops(stops)
         }
     }
     fun addBus(bus: Bus) {

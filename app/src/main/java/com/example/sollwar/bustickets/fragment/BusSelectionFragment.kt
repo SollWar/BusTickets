@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sollwar.bustickets.MainViewModel
 import com.example.sollwar.bustickets.R
 import com.example.sollwar.bustickets.model.Bus
+import com.example.sollwar.bustickets.model.BusOnRoute
+import com.example.sollwar.bustickets.model.Route
 
 private const val CITY_FROM = "CITY_FROM"
 private const val CITY_IN = "CITY_IN"
@@ -50,7 +52,7 @@ class BusSelectionFragment : Fragment() {
 
         Toast.makeText(requireContext(), "$cityIdFrom $cityFrom ->$cityIdIn $cityIn", Toast.LENGTH_SHORT).show()
         viewModel.refreshBuses(cityIdFrom, cityIdIn)
-        viewModel.busListLiveData.observe(
+        viewModel.busOnRouteListLiveData.observe(
             viewLifecycleOwner,
             Observer { buses ->
                 buses?.let {
@@ -65,13 +67,14 @@ class BusSelectionFragment : Fragment() {
     }
 
     private inner class BusHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private lateinit var bus: Bus
+        private lateinit var busOnRoute: BusOnRoute
 
         private val timeFrom: TextView = itemView.findViewById(R.id.time_from)
         private val timeIn: TextView = itemView.findViewById(R.id.time_in)
         private val placeFrom: TextView = itemView.findViewById(R.id.place_from)
         private val placeIn: TextView = itemView.findViewById(R.id.place_in)
         private val busName: TextView = itemView.findViewById(R.id.bus_name)
+        private val priceTicket: TextView = itemView.findViewById(R.id.price)
 
         init {
             itemView.setOnClickListener(this)
@@ -82,17 +85,18 @@ class BusSelectionFragment : Fragment() {
         }
 
 
-        fun bind(bus: Bus) {
-            this.bus = bus
-            busName.text = this.bus.name
-            timeFrom.text = this.bus.timeFrom
-            timeIn.text = this.bus.timeIn
+        fun bind(busOnRoute: BusOnRoute) {
+            this.busOnRoute = busOnRoute
+            busName.text = this.busOnRoute.name
+            timeFrom.text = this.busOnRoute.timeFrom
+            timeIn.text = this.busOnRoute.timeIn
             placeFrom.text = viewModel.cityNameOut
             placeIn.text = viewModel.cityNameIn
+            priceTicket.text = "${this.busOnRoute.price.toString()} Р"
         }
     }
 
-    private inner class BusAdapter(private var busList: List<Bus>) : RecyclerView.Adapter<BusHolder>() {
+    private inner class BusAdapter(private var busList: List<BusOnRoute>) : RecyclerView.Adapter<BusHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusHolder {
             val view = layoutInflater.inflate(R.layout.item_bus, parent, false)

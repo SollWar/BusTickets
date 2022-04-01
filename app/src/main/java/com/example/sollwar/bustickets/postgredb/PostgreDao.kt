@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sollwar.bustickets.model.Bus
 import com.example.sollwar.bustickets.model.City
+import com.example.sollwar.bustickets.model.Route
+import com.example.sollwar.bustickets.model.Stop
 import java.sql.ResultSet
 import java.sql.Statement
 
@@ -21,17 +23,17 @@ class PostgreDao {
         }
     }
 
-    public fun getAllBus(): LiveData<List<Bus>> {
-        val buses: ArrayList<Bus> = arrayListOf()
-        val mutableLiveData: MutableLiveData<List<Bus>> = MutableLiveData()
-        val query = "Select * From bus"
+    public fun getAllStop(): LiveData<List<Stop>> {
+        val stops: ArrayList<Stop> = arrayListOf()
+        val mutableLiveData: MutableLiveData<List<Stop>> = MutableLiveData()
+        val query = "Select * From stop"
         val thread = Thread(Runnable {
             kotlin.run {
                 try {
                     val rs: ResultSet = st.executeQuery(query)
                     while (rs.next()) {
-                        Log.d("SQL", "${rs.getString(2)}.${rs.getString(3)}.${rs.getString(4)}.${rs.getString(5)}.${rs.getString(6)}")
-                        buses.add((Bus(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6))))
+                        stops.add(Stop(rs.getInt(1), rs.getString(2), rs.getInt(3)))
+                        Log.d("SQL", "${rs.getInt(1)}, ${rs.getString(2)}, ${rs.getInt(3)}")
                     }
                 } catch (e: Exception) {
                     Log.d("SQL", e.toString())
@@ -44,7 +46,58 @@ class PostgreDao {
         } catch (e: Exception) {
             Log.d("SQL", e.toString())
         }
-        Log.d("SQL", buses.toString())
+        mutableLiveData.value = stops
+        return mutableLiveData
+    }
+
+    public fun getAllRoute(): LiveData<List<Route>> {
+        val routes: ArrayList<Route> = arrayListOf()
+        val mutableLiveData: MutableLiveData<List<Route>> = MutableLiveData()
+        val query = "Select * From route"
+        val thread = Thread(Runnable {
+            kotlin.run {
+                try {
+                    val rs: ResultSet = st.executeQuery(query)
+                    while (rs.next()) {
+                        routes.add((Route(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5))))
+                    }
+                } catch (e: Exception) {
+                    Log.d("SQL", e.toString())
+                }
+            }
+        })
+        thread.start()
+        try {
+            thread.join()
+        } catch (e: Exception) {
+            Log.d("SQL", e.toString())
+        }
+        mutableLiveData.value = routes
+        return mutableLiveData
+    }
+
+    public fun getAllBus(): LiveData<List<Bus>> {
+        val buses: ArrayList<Bus> = arrayListOf()
+        val mutableLiveData: MutableLiveData<List<Bus>> = MutableLiveData()
+        val query = "Select * From bus"
+        val thread = Thread(Runnable {
+            kotlin.run {
+                try {
+                    val rs: ResultSet = st.executeQuery(query)
+                    while (rs.next()) {
+                        buses.add((Bus(rs.getInt(1), rs.getString(2))))
+                    }
+                } catch (e: Exception) {
+                    Log.d("SQL", e.toString())
+                }
+            }
+        })
+        thread.start()
+        try {
+            thread.join()
+        } catch (e: Exception) {
+            Log.d("SQL", e.toString())
+        }
         mutableLiveData.value = buses
         return mutableLiveData
     }
