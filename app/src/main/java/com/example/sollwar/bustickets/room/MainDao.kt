@@ -7,22 +7,22 @@ import com.example.sollwar.bustickets.model.*
 @Dao
 interface MainDao {
     @Query("SELECT * FROM city WHERE name LIKE :str LIMIT 3")
-    fun getCities(str: String): LiveData<List<City>>
+    suspend fun getCities(str: String): List<City>
 
     @Insert
-    fun addCity(city: City)
+    suspend fun addCity(city: City)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCities(cities: List<City>)
+    suspend fun addCities(cities: List<City>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addBuses(buses: List<Bus>)
+    suspend fun addBuses(buses: List<Bus>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addRoutes(routes: List<Route>)
+    suspend fun addRoutes(routes: List<Route>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addStops(stops: List<Stop>)
+    suspend fun addStops(stops: List<Stop>)
 
     @Query("DELETE FROM city")
-    fun clearCityTable()
+    suspend fun clearCityTable()
 
     @Query("SELECT t1.busId, t2.name, t1.stopFrom, t2.stopIn, t1.timeFrom, t2.timeIn, t2.price\n" +
             "FROM \n" +
@@ -31,14 +31,14 @@ interface MainDao {
             "(SELECT Route.busId  as busId, Route.time as timeIn, Bus.name as name, Route.price as price, Stop.name as stopIn FROM Route, Stop, City, Bus WHERE Bus.busId = Route.busId and Route.stopId = Stop.stopId and Stop.cityId = City.cityId and Stop.cityId = :cityIn) t2 \n" +
             "ON (t1.busId = t2.busId and  t2.timeIn > t1.timeFrom)" +
             "ORDER BY t1.timeFrom")
-    fun getBus(cityFrom: Int, cityIn: Int): LiveData<List<BusOnRoute>>
+    suspend fun getBus(cityFrom: Int, cityIn: Int): List<BusOnRoute>
 
     @Query("SELECT * FROM route")
-    fun getAllRoute(): LiveData<List<Route>>
+    suspend fun getAllRoute(): List<Route>
     @Query("SELECT * FROM stop")
-    fun getAllStop(): LiveData<List<Stop>>
+    suspend fun getAllStop(): List<Stop>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addBus(bus: Bus)
+    suspend fun addBus(bus: Bus)
 
 }

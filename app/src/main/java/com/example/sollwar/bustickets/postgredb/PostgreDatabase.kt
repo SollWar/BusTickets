@@ -7,10 +7,10 @@ import java.sql.Statement
 
 class PostgreDatabase{
 
-    lateinit var st: Statement
+    var st: Statement? = null
     var status = false
 
-    private lateinit var connection: Connection
+    private var connection: Connection? = null
 
     init {
         val user = "Sollwar"
@@ -19,9 +19,8 @@ class PostgreDatabase{
         val thread = Thread(Runnable {
             kotlin.run {
                 try {
-                    Class.forName("org.postgresql.Driver")
                     connection = DriverManager.getConnection(url, user, password)
-                    st = connection.createStatement()
+                    st = connection!!.createStatement()
                     status = true
                     Log.d("SQL", "Connected: $status")
                 } catch (e: Exception) {

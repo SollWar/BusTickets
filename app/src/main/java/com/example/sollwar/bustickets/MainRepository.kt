@@ -21,48 +21,20 @@ class MainDBRepository private constructor(context: Context){
     ).fallbackToDestructiveMigration().build()
 
     private val mainDao = database.mainDao()
-    private val executor = Executors.newSingleThreadExecutor()
 
-    fun getCities(str: String = "%"): LiveData<List<City>> = mainDao.getCities(str)
-    fun addCities(cities: List<City>) {
-        executor.execute {
-            mainDao.addCities(cities)
-        }
-    }
-    fun addCity(city: City) {
-        executor.execute {
-            mainDao.addCity(city)
-        }
-    }
-    fun clearCityTable() {
-        executor.execute {
-            mainDao.clearCityTable()
-        }
-    }
+    suspend fun getCities(str: String = "%"): List<City> = mainDao.getCities(str)
+    suspend fun addCities(cities: List<City>) = mainDao.addCities(cities)
+    suspend fun clearCityTable() = mainDao.clearCityTable()
+    suspend fun addCity(city: City) = mainDao.addCity(city)
 
-    fun getBus(cityFrom: Int = 0, cityIn: Int = 0): LiveData<List<BusOnRoute>> = mainDao.getBus(cityFrom, cityIn)
-    fun getAllRoute(): LiveData<List<Route>> = mainDao.getAllRoute()
-    fun getAllStop(): LiveData<List<Stop>> = mainDao.getAllStop()
-    fun addBuses(buses: List<Bus>) {
-        executor.execute {
-            mainDao.addBuses(buses)
-        }
-    }
-    fun addRoutes(routes: List<Route>) {
-        executor.execute {
-            mainDao.addRoutes(routes)
-        }
-    }
-    fun addStops(stops: List<Stop>) {
-        executor.execute {
-            mainDao.addStops(stops)
-        }
-    }
-    fun addBus(bus: Bus) {
-        executor.execute {
-            mainDao.addBus(bus)
-        }
-    }
+
+    suspend fun getBus(cityFrom: Int = 0, cityIn: Int = 0): List<BusOnRoute> = mainDao.getBus(cityFrom, cityIn)
+    suspend fun getAllRoute(): List<Route> = mainDao.getAllRoute()
+    suspend fun getAllStop(): List<Stop> = mainDao.getAllStop()
+    suspend fun addBuses(buses: List<Bus>) = mainDao.addBuses(buses)
+    suspend fun addRoutes(routes: List<Route>) = mainDao.addRoutes(routes)
+    suspend fun addStops(stops: List<Stop>) = mainDao.addStops(stops)
+    suspend fun addBus(bus: Bus) = mainDao.addBus(bus)
 
     companion object {
         private var INSTANCE: MainDBRepository? = null
