@@ -13,13 +13,11 @@ class PostgreDatabase{
     private var connection: Connection? = null
 
     init {
-        val user = "Sollwar"
-        val password = "548639909242aA"
-        val url = "jdbc:postgresql://rc1b-eolhpryga634iefm.mdb.yandexcloud.net:6432/Z3RG_BD"
+        val auth = AuthDate()
         val thread = Thread(Runnable {
             kotlin.run {
                 try {
-                    connection = DriverManager.getConnection(url, user, password)
+                    connection = DriverManager.getConnection(auth.url, auth.user, auth.password)
                     st = connection!!.createStatement()
                     status = true
                     Log.d("SQL", "Connected: $status")
