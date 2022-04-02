@@ -43,7 +43,6 @@ class MainViewModel : ViewModel() {
         }
     }
 
-
     fun refreshBuses(cityFrom: Int, cityIn: Int) {
         viewModelScope.launch {
             busOnRouteListLiveData.value = mainDBRepository.getBus(cityFrom, cityIn)

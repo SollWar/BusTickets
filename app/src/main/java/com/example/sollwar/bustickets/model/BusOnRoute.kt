@@ -3,9 +3,7 @@ package com.example.sollwar.bustickets.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
 data class BusOnRoute(
-    @PrimaryKey
     var busId: Int = 0,
     var name: String = "",
     var stopFrom: String = "",

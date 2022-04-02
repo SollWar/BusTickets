@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.sollwar.bustickets.fragment.BusRouteFragment
 import com.example.sollwar.bustickets.fragment.BusSelectionFragment
 import com.example.sollwar.bustickets.fragment.CitySelectorFragment
 import com.example.sollwar.bustickets.fragment.MainFragment
@@ -34,6 +35,14 @@ class MainActivity : AppCompatActivity(), Navigator {
             .setCustomAnimations(R.anim.get_up, R.anim.get_invisible, R.anim.get_visible, R.anim.get_down)
             .addToBackStack(null)
             .replace(R.id.fragment_container, BusSelectionFragment.newInstance())
+            .commit()
+    }
+
+    override fun busRouteClick(busOnRoutePosition: Int) {
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_container, BusRouteFragment.newInstance(busOnRoutePosition))
             .commit()
     }
 

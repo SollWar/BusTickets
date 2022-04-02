@@ -17,6 +17,7 @@ import com.example.sollwar.bustickets.R
 import com.example.sollwar.bustickets.model.Bus
 import com.example.sollwar.bustickets.model.BusOnRoute
 import com.example.sollwar.bustickets.model.Route
+import com.example.sollwar.bustickets.navigator
 
 private const val CITY_FROM = "CITY_FROM"
 private const val CITY_IN = "CITY_IN"
@@ -67,6 +68,7 @@ class BusSelectionFragment : Fragment() {
 
     private inner class BusHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private lateinit var busOnRoute: BusOnRoute
+        private var busOnRoutePosition = 0
 
         private val timeFrom: TextView = itemView.findViewById(R.id.time_from)
         private val timeIn: TextView = itemView.findViewById(R.id.time_in)
@@ -80,12 +82,12 @@ class BusSelectionFragment : Fragment() {
         }
 
         override fun onClick(p0: View?) {
-            //
+            navigator().busRouteClick(busOnRoutePosition)
         }
 
-
-        fun bind(busOnRoute: BusOnRoute) {
+        fun bind(busOnRoute: BusOnRoute, busOnRoutePosition: Int) {
             this.busOnRoute = busOnRoute
+            this.busOnRoutePosition = busOnRoutePosition
             busName.text = this.busOnRoute.name
             timeFrom.text = this.busOnRoute.timeFrom
             timeIn.text = this.busOnRoute.timeIn
@@ -104,7 +106,7 @@ class BusSelectionFragment : Fragment() {
 
         override fun onBindViewHolder(holder: BusHolder, position: Int) {
             holder.apply {
-                holder.bind(busList[position])
+                holder.bind(busList[position], position)
             }
         }
 

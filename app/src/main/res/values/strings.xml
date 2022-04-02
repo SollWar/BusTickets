@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BusTickets</string>
+    <string name="attention_before_buying">Проверьте маршрут и детали поездки, прежде чем продолжить</string>
 </resources>
