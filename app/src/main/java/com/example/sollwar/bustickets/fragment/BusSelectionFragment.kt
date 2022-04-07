@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,13 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sollwar.bustickets.MainViewModel
 import com.example.sollwar.bustickets.R
-import com.example.sollwar.bustickets.model.Bus
 import com.example.sollwar.bustickets.model.BusOnRoute
-import com.example.sollwar.bustickets.model.Route
 import com.example.sollwar.bustickets.navigator
-
-private const val CITY_FROM = "CITY_FROM"
-private const val CITY_IN = "CITY_IN"
 
 class BusSelectionFragment : Fragment() {
 
@@ -28,6 +23,7 @@ class BusSelectionFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BusAdapter
+    private lateinit var toolbar: Toolbar
 
     private lateinit var cityFrom: String
     private lateinit var cityIn: String
@@ -46,6 +42,8 @@ class BusSelectionFragment : Fragment() {
         cityFrom = viewModel.cityNameOut
         cityIn = viewModel.cityNameIn
 
+        toolbar = view.findViewById(R.id.toolbar)
+        toolbar.title = "$cityFrom -> $cityIn"
         recyclerView = view.findViewById(R.id.bus_recycler_view)
         adapter = BusAdapter(listOf())
         recyclerView.adapter = adapter

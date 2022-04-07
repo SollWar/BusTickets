@@ -16,10 +16,10 @@ class PostgreRepository(context: Context) {
         status = dao.status
     }
 
-    fun getCities(): List<City> = dao.getCities()
-    fun getAllBus(): List<Bus> = dao.getAllBus()
-    fun getAllStop(): List<Stop> = dao.getAllStop()
-    fun getAllRoute(): List<Route> = dao.getAllRoute()
+    suspend fun getCities(): List<City> = dao.getCities()
+    suspend fun getAllBus(): List<Bus> = dao.getAllBus()
+    suspend fun getAllStop(): List<Stop> = dao.getAllStop()
+    suspend fun getAllRoute(): List<Route> = dao.getAllRoute()
 
 
     companion object {

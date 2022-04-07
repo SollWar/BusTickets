@@ -1,5 +1,6 @@
 package com.example.sollwar.bustickets
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,32 +15,25 @@ class MainViewModel : ViewModel() {
     val busOnRouteListLiveData = MutableLiveData<List<BusOnRoute>>()
 
     init {
-        if (postgreRepository.status) {
-            viewModelScope.launch {
-                mainDBRepository.clearCityTable()
-                val cityResponse = viewModelScope.async(Dispatchers.IO) {
-                    return@async postgreRepository.getCities()
-                }
-                mainDBRepository.addCities(cityResponse.await())
-                val busResponse = viewModelScope.async(Dispatchers.IO) {
-                    return@async postgreRepository.getAllBus()
-                }
-                mainDBRepository.addBuses(busResponse.await())
-                val stopResponse = viewModelScope.async(Dispatchers.IO) {
-                    return@async postgreRepository.getAllStop()
-                }
-                mainDBRepository.addStops(stopResponse.await())
-                val routeResponse = viewModelScope.async(Dispatchers.IO) {
-                    return@async postgreRepository.getAllRoute()
-                }
-                mainDBRepository.addRoutes(routeResponse.await())
+        viewModelScope.launch {
+            mainDBRepository.clearCityTable()
+            val cityResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async postgreRepository.getCities()
             }
-
-        } else {
-            viewModelScope.launch {
-                citiesListLiveData.value = mainDBRepository.getCities()
-                busOnRouteListLiveData.value = mainDBRepository.getBus()
+            mainDBRepository.addCities(cityResponse.await())
+            val busResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async postgreRepository.getAllBus()
             }
+            mainDBRepository.addBuses(busResponse.await())
+            val stopResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async postgreRepository.getAllStop()
+            }
+            mainDBRepository.addStops(stopResponse.await())
+            val routeResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async postgreRepository.getAllRoute()
+            }
+            mainDBRepository.addRoutes(routeResponse.await())
+            Log.d("SQL", "All Loaded!")
         }
     }
 

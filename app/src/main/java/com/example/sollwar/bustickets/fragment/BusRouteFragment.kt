@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sollwar.bustickets.MainViewModel
@@ -22,6 +23,7 @@ class BusRouteFragment : Fragment() {
     private lateinit var placeFromTextView: TextView
     private lateinit var placeInTextView: TextView
     private lateinit var priceTextView: TextView
+    private lateinit var toolbar: Toolbar
 
     private var busOnRoutePosition = 0
     private var busOnRoute: BusOnRoute? = null
@@ -39,6 +41,8 @@ class BusRouteFragment : Fragment() {
         placeFromTextView = view.findViewById(R.id.place_from)
         placeInTextView = view.findViewById(R.id.place_in)
         priceTextView = view.findViewById(R.id.price)
+        toolbar = view.findViewById(R.id.toolbar)
+        toolbar.title = "Детали рейса"
 
         busOnRoutePosition = arguments?.getInt("position") as Int
         busOnRoute = viewModel.busOnRouteListLiveData.value?.get(busOnRoutePosition)
