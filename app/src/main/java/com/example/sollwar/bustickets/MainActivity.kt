@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.sollwar.bustickets.fragment.BusRouteFragment
-import com.example.sollwar.bustickets.fragment.BusSelectionFragment
-import com.example.sollwar.bustickets.fragment.CitySelectorFragment
-import com.example.sollwar.bustickets.fragment.MainFragment
+import com.example.sollwar.bustickets.fragment.*
 
 
 class MainActivity : AppCompatActivity(), Navigator {
@@ -43,6 +40,14 @@ class MainActivity : AppCompatActivity(), Navigator {
             .beginTransaction()
             .addToBackStack(null)
             .replace(R.id.fragment_container, BusRouteFragment.newInstance(busOnRoutePosition))
+            .commit()
+    }
+
+    override fun showBusRoute(busId: Int) {
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_container, RouteFragment.newInstance(busId))
             .commit()
     }
 

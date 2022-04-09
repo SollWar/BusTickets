@@ -25,6 +25,7 @@
         android:backgroundTint="@color/white"
         tools:hint="30 мар, ср"
         android:textAlignment="viewStart"
+        android:visibility="invisible"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/button_find_bus"
         app:layout_constraintEnd_toEndOf="@+id/button_find_bus"

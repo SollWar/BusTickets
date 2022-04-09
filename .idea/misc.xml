@@ -11,11 +11,13 @@
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout-v26/fragment_city_selector.xml" value="0.2563405797101449" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/activity_main.xml" value="0.2563405797101449" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_bus_list.xml" value="0.24909420289855072" />
-        <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_bus_route.xml" value="0.33" />
+        <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_bus_route.xml" value="0.1" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_city_selector.xml" value="0.2563405797101449" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_main.xml" value="0.33" />
+        <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/fragment_route.xml" value="0.25" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/item_autocomplete_city.xml" value="0.22" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/item_bus.xml" value="0.5" />
+        <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/layout/item_route.xml" value="0.5567502986857825" />
         <entry key="..\:/Users/Sollw/androidProject/BusTickets/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.139" />
       </map>
     </option>

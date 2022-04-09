@@ -35,6 +35,8 @@ class MainDBRepository private constructor(context: Context){
     suspend fun addRoutes(routes: List<Route>) = mainDao.addRoutes(routes)
     suspend fun addStops(stops: List<Stop>) = mainDao.addStops(stops)
     suspend fun addBus(bus: Bus) = mainDao.addBus(bus)
+    suspend fun getBusRoute(busId: Int): List<BusRoute> = mainDao.getBusRoute(busId)
+    suspend fun getBusFromId(busId: Int): Bus = mainDao.getBusFromId(busId)
 
     companion object {
         private var INSTANCE: MainDBRepository? = null

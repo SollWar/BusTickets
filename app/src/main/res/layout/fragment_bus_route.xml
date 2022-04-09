@@ -74,15 +74,85 @@
                 tools:text="Автовокзал" />
 
             <TextView
-                android:id="@+id/placeholder"
-                android:layout_width="0dp"
+                android:id="@+id/bus_route_time_view"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Вставить всякое об автобусе и маршруте"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:text="В пути: "
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/time_from"
                 app:layout_constraintTop_toBottomOf="@+id/place_from" />
+
+            <TextView
+                android:id="@+id/bus_route_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="3ч 0м"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bus_route_time_view"
+                app:layout_constraintTop_toTopOf="@+id/bus_route_time_view" />
+
+            <TextView
+                android:id="@+id/bus_carrier_view"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Перевозчик: "
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/bus_route_time_view"
+                app:layout_constraintTop_toBottomOf="@+id/bus_route_time_view" />
+
+            <TextView
+                android:id="@+id/bus_carrier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Грибанов Д. В."
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bus_carrier_view"
+                app:layout_constraintTop_toTopOf="@+id/bus_carrier_view" />
+
+            <TextView
+                android:id="@+id/bus_model_view"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Автобус: "
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/bus_carrier_view"
+                app:layout_constraintTop_toBottomOf="@+id/bus_carrier_view" />
+
+            <TextView
+                android:id="@+id/bus_model"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Scania K400 IB6X2 4NB"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bus_model_view"
+                app:layout_constraintTop_toTopOf="@+id/bus_model_view" />
+
+            <TextView
+                android:id="@+id/bus_route_view"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Маршрут:"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/bus_model_view"
+                app:layout_constraintTop_toBottomOf="@+id/bus_model_view" />
+
+            <TextView
+                android:id="@+id/bus_route"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Подробнее о маршруте"
+                android:textColor="@color/purple_500"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bus_route_view"
+                app:layout_constraintTop_toTopOf="@+id/bus_route_view" />
 
             <TextView
                 android:id="@+id/time_in"
@@ -101,8 +171,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Прибытие, время"
-                app:layout_constraintStart_toStartOf="@+id/placeholder"
-                app:layout_constraintTop_toBottomOf="@+id/placeholder" />
+                app:layout_constraintStart_toStartOf="@+id/bus_route_view"
+                app:layout_constraintTop_toBottomOf="@+id/bus_route_view" />
 
             <TextView
                 android:id="@+id/place_in"

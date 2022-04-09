@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 data class Bus(
     @PrimaryKey(autoGenerate = true)
     var busId: Int = 0,
-    var name: String = ""
+    var name: String = "",
+    var carrier: String = "",
+    var busmodel: String = ""
 )

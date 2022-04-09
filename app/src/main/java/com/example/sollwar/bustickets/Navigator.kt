@@ -10,4 +10,5 @@ interface Navigator {
     fun cityClick(cityName: String, citySelect: String)
     fun findBus()
     fun busRouteClick(busOnRoutePosition: Int)
+    fun showBusRoute(busId: Int)
 }

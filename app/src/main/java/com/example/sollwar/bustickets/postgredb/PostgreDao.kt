@@ -14,7 +14,7 @@ class PostgreDao {
 
     var status = false
 
-    private suspend fun connection(): Connection? {
+    suspend fun connection(): Connection? {
         val auth = AuthDate()
         var connection: Connection? = null
         try {
@@ -24,9 +24,7 @@ class PostgreDao {
             status = false
             Log.d("SQL", e.message.toString())
             e.printStackTrace()
-            delay(5000)
-            Log.d("SQL", "Retry connection")
-            return connection()
+            return null
         }
         return connection
     }
@@ -73,7 +71,7 @@ class PostgreDao {
         try {
             val rs: ResultSet = statement.executeQuery(query)
             while (rs.next()) {
-                buses.add((Bus(rs.getInt(1), rs.getString(2))))
+                buses.add((Bus(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4))))
             }
             Log.d("SQL", "Busses Loaded!")
         } catch (e: Exception) {

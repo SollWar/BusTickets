@@ -13,27 +13,47 @@ class MainViewModel : ViewModel() {
 
     val citiesListLiveData = MutableLiveData<List<City>>()
     val busOnRouteListLiveData = MutableLiveData<List<BusOnRoute>>()
+    val busRouteListLiveDate = MutableLiveData<List<BusRoute>>()
+    val busLiveData = MutableLiveData<Bus>()
+
+    fun getBusRoute(busId: Int) {
+        viewModelScope.launch {
+            val routeResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async mainDBRepository.getBusRoute(busId)
+            }
+            busRouteListLiveDate.value = routeResponse.await()
+        }
+    }
 
     init {
         viewModelScope.launch {
-            mainDBRepository.clearCityTable()
-            val cityResponse = viewModelScope.async(Dispatchers.IO) {
-                return@async postgreRepository.getCities()
+            val statusConnection = viewModelScope.async(Dispatchers.IO) {
+                return@async postgreRepository.testConnection()
             }
-            mainDBRepository.addCities(cityResponse.await())
-            val busResponse = viewModelScope.async(Dispatchers.IO) {
-                return@async postgreRepository.getAllBus()
+            if (statusConnection.await()) {
+                mainDBRepository.clearCityTable()
+                val cityResponse = viewModelScope.async(Dispatchers.IO) {
+                    return@async postgreRepository.getCities()
+                }
+                mainDBRepository.addCities(cityResponse.await())
+                val busResponse = viewModelScope.async(Dispatchers.IO) {
+                    return@async postgreRepository.getAllBus()
+                }
+                mainDBRepository.addBuses(busResponse.await())
+                val stopResponse = viewModelScope.async(Dispatchers.IO) {
+                    return@async postgreRepository.getAllStop()
+                }
+                mainDBRepository.addStops(stopResponse.await())
+                val routeResponse = viewModelScope.async(Dispatchers.IO) {
+                    return@async postgreRepository.getAllRoute()
+                }
+                mainDBRepository.addRoutes(routeResponse.await())
+                offline = false
+                Log.d("SQL", "All Loaded!")
+            } else {
+                offline = true
+                Log.d("SQL", "Offline Mode!")
             }
-            mainDBRepository.addBuses(busResponse.await())
-            val stopResponse = viewModelScope.async(Dispatchers.IO) {
-                return@async postgreRepository.getAllStop()
-            }
-            mainDBRepository.addStops(stopResponse.await())
-            val routeResponse = viewModelScope.async(Dispatchers.IO) {
-                return@async postgreRepository.getAllRoute()
-            }
-            mainDBRepository.addRoutes(routeResponse.await())
-            Log.d("SQL", "All Loaded!")
         }
     }
 
@@ -48,7 +68,17 @@ class MainViewModel : ViewModel() {
             citiesListLiveData.value = mainDBRepository.getCities(str)
         }
     }
+    fun getBusFromId(busId: Int) {
+        viewModelScope.launch {
+            val busResponse = viewModelScope.async(Dispatchers.IO) {
+                return@async mainDBRepository.getBusFromId(busId)
+            }
+            busLiveData.value = busResponse.await()
+        }
 
+    }
+
+    var offline = false
     var cityIdFrom: Int = 0
     var cityIdIn: Int = 0
     var cityNameOut: String = "Откуда"

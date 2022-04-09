@@ -33,6 +33,17 @@ interface MainDao {
             "ORDER BY t1.timeFrom")
     suspend fun getBus(cityFrom: Int, cityIn: Int): List<BusOnRoute>
 
+    @Query("SELECT *\n" +
+            "FROM Bus\n" +
+            "WHERE bus.busId = :busId")
+    suspend fun getBusFromId(busId: Int): Bus
+
+    @Query("SELECT Stop.name as stopName, City.name as cityName, Route.time as routeTime\n" +
+            "FROM Bus, Route, Stop, City\n" +
+            "WHERE Bus.busid = :busId and Bus.busid = Route.busid and Route.stopid = Stop.stopid and Stop.cityId = City.cityId\n" +
+            "ORDER BY Route.time")
+    suspend fun getBusRoute(busId: Int): List<BusRoute>
+
     @Query("SELECT * FROM route")
     suspend fun getAllRoute(): List<Route>
     @Query("SELECT * FROM stop")
